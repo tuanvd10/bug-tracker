@@ -6,7 +6,7 @@ import { JWT_SECRET } from '../utils/config';
 import { registerValidator, loginValidator } from '../utils/validators';
 
 export const signupUser = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
   const { errors, valid } = registerValidator(username, password);
 
   if (!valid) {
@@ -14,7 +14,7 @@ export const signupUser = async (req: Request, res: Response) => {
   }
 
   const existingUser = await User.findOne({
-    where: `"username" ILIKE '${username}'`,
+    where: `"username" LIKE '${username}'`,
   });
 
   if (existingUser) {
@@ -26,7 +26,7 @@ export const signupUser = async (req: Request, res: Response) => {
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  const user = User.create({ username, passwordHash });
+  const user = User.create({username: username, passwordHash: passwordHash, email: email });
   await user.save();
 
   const token = jwt.sign(
@@ -53,7 +53,7 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 
   const user = await User.findOne({
-    where: `"username" ILIKE '${username}'`,
+    where: `"username" LIKE '${username}'`,
   });
 
   if (!user) {

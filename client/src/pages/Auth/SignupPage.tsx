@@ -29,11 +29,13 @@ import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+//import EmailIcon from '@mui/icons-material/Email';
 
 interface InputValues {
   username: string;
   password: string;
   confirmPassword: string;
+  email: string;
 }
 
 const validationSchema = yup.object({
@@ -54,6 +56,14 @@ const validationSchema = yup.object({
     .string()
     .required('Required')
     .min(6, 'Must be at least 6 characters'),
+  email: yup
+    .string()
+    .required('Required')
+    .min(3, 'Must be at least 3 characters')
+    .matches(
+      /^[a-zA-Z0-9-_]*$/,
+      'Please fill email'
+    ),
 });
 
 const SignupPage = () => {
@@ -71,11 +81,12 @@ const SignupPage = () => {
     username,
     password,
     confirmPassword,
+    email
   }: InputValues) => {
     if (password !== confirmPassword) {
       return dispatch(setAuthError('Both passwords need to match.'));
     }
-    dispatch(signup({ username, password }));
+    dispatch(signup({ username, password, email }));
   };
 
   return (
@@ -166,6 +177,26 @@ const SignupPage = () => {
                 startAdornment: (
                   <InputAdornment position="start">
                     <EnhancedEncryptionIcon color="primary" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <div className={classes.inputField}>
+            <TextField
+              required
+              fullWidth
+              inputRef={register}
+              name="email"
+              type="text"
+              label="Email"
+              variant="outlined"
+              error={'email' in errors}
+              helperText={'email' in errors ? errors.email.message : ''}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon color="primary" />
                   </InputAdornment>
                 ),
               }}

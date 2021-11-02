@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../store';
 import authService from '../../services/auth';
 import storage from '../../utils/localStorage';
-import { CredentialsPayload, UserState } from '../types';
+import { CredentialsPayload, UserState, CredentialsPayloadSignUp} from '../types';
 import { fetchProjects } from './projectsSlice';
 import { notify } from './notificationSlice';
 import { fetchUsers } from './usersSlice';
@@ -73,7 +73,7 @@ export const login = (credentials: CredentialsPayload): AppThunk => {
   };
 };
 
-export const signup = (credentials: CredentialsPayload): AppThunk => {
+export const signup = (credentials: CredentialsPayloadSignUp): AppThunk => {
   return async (dispatch) => {
     try {
       dispatch(setAuthLoading());

@@ -84,6 +84,12 @@ export interface CredentialsPayload {
   password: string;
 }
 
+export interface CredentialsPayloadSignUp {
+  username: string;
+  password: string;
+  email: string;
+}
+
 export interface ProjectPayload {
   name: string;
   members: string[];
