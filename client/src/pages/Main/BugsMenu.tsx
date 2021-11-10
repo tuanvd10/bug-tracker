@@ -18,8 +18,8 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 
 interface BugsMenuProps {
-  projectId: string;
-  bugId: string;
+  projectId: number;
+  bugId: number;
   currentData: BugPayload;
   isResolved: boolean;
   iconSize?: 'small' | 'default' | 'large';

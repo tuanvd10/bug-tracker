@@ -32,11 +32,11 @@ const BugsDetailsPage = () => {
   const classes = useMainPageStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { projectId, bugId } = useParams<ParamTypes>();
+  let { projectId , bugId } = useParams<ParamTypes>();
   const history = useHistory();
   const dispatch = useDispatch();
   const bug = useSelector((state: RootState) =>
-    selectBugById(state, projectId, bugId)
+    selectBugById(state, Number(projectId), Number(bugId))
   );
 
   if (!bug) {
@@ -74,15 +74,15 @@ const BugsDetailsPage = () => {
   } = bug;
 
   const handleDeleteBug = () => {
-    dispatch(deleteBug(projectId, bugId, history));
+    dispatch(deleteBug(Number(projectId), Number(bugId), history));
   };
 
   const handleCloseBug = () => {
-    dispatch(closeReopenBug(projectId, bugId, 'close'));
+    dispatch(closeReopenBug(Number(projectId), Number(bugId), 'close'));
   };
 
   const handleReopenBug = () => {
-    dispatch(closeReopenBug(projectId, bugId, 'reopen'));
+    dispatch(closeReopenBug(Number(projectId), Number(bugId), 'reopen'));
   };
 
   const statusCSS: CSS.Properties = {
@@ -158,7 +158,7 @@ const BugsDetailsPage = () => {
       >
         <BugForm
           isEditMode={true}
-          projectId={projectId}
+          projectId={Number(projectId)}
           bugId={id}
           currentData={{ title, description, priority }}
         />
@@ -235,7 +235,7 @@ const BugsDetailsPage = () => {
       </Paper>
       <NotesCard
         notes={notes}
-        projectId={projectId}
+        projectId={Number(projectId)}
         bugId={id}
         isMobile={isMobile}
       />

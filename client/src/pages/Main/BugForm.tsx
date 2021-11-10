@@ -37,10 +37,10 @@ const validationSchema = yup.object({
 
 interface BugFormProps {
   closeDialog?: () => void;
-  projectId: string;
+  projectId: number;
   isEditMode: boolean;
   currentData?: BugPayload;
-  bugId?: string;
+  bugId?: number;
 }
 
 const BugForm: React.FC<BugFormProps> = ({
@@ -68,7 +68,7 @@ const BugForm: React.FC<BugFormProps> = ({
   };
 
   const handleUpdateBug = (data: BugPayload) => {
-    dispatch(editBug(projectId, bugId as string, data, closeDialog));
+    dispatch(editBug(projectId, bugId as number, data, closeDialog));
   };
 
   return (

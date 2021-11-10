@@ -13,7 +13,7 @@ export class Project extends BaseModel {
   @JoinColumn({ name: 'createdById' })
   createdBy: User;
   @Column()
-  createdById: string;
+  createdById: number;
 
   @OneToMany(() => Member, (member) => member.project)
   @JoinColumn()

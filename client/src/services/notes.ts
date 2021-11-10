@@ -5,8 +5,8 @@ import { setConfig } from './auth';
 const baseUrl = `${backendUrl}/projects`;
 
 const createNote = async (
-  projectId: string,
-  bugId: string,
+  projectId: number,
+  bugId: number,
   noteBody: string
 ) => {
   const response = await axios.post(
@@ -18,7 +18,7 @@ const createNote = async (
 };
 
 const editNote = async (
-  projectId: string,
+  projectId: number,
   noteId: number,
   noteBody: string
 ) => {
@@ -30,7 +30,7 @@ const editNote = async (
   return response.data;
 };
 
-const deleteNote = async (projectId: string, noteId: number) => {
+const deleteNote = async (projectId: number, noteId: number) => {
   const response = await axios.delete(
     `${baseUrl}/${projectId}/notes/${noteId}`,
     setConfig()

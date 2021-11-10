@@ -30,8 +30,8 @@ const menuItems = [
 
 const NotesCard: React.FC<{
   notes: Note[];
-  projectId: string;
-  bugId: string;
+  projectId: number;
+  bugId: number;
   isMobile: boolean;
 }> = ({ notes, projectId, bugId, isMobile }) => {
   const classes = useMainPageStyles();

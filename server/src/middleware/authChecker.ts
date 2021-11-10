@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../utils/config';
 
 interface TokenInterface {
-  id: string;
+  id: number;
   username: string;
 }
 
@@ -27,7 +27,7 @@ const authChecker = (req: Request, res: Response, next: NextFunction) => {
 
     req.user = decodedToken.id;
     next();
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).send({ message: error.message });
   }
 };

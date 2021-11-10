@@ -44,14 +44,14 @@ const projectsSlice = createSlice({
       state.submitLoading = false;
       state.submitError = null;
     },
-    removeProject: (state, action: PayloadAction<string>) => {
+    removeProject: (state, action: PayloadAction<number>) => {
       state.projects = state.projects.filter((p) => p.id !== action.payload);
     },
     updateProjectName: (
       state,
       action: PayloadAction<{
         data: { name: string; updatedAt: Date };
-        projectId: string;
+        projectId: number;
       }>
     ) => {
       state.projects = state.projects.map((p) =>
@@ -62,7 +62,7 @@ const projectsSlice = createSlice({
     },
     addMembers: (
       state,
-      action: PayloadAction<{ members: ProjectMember[]; projectId: string }>
+      action: PayloadAction<{ members: ProjectMember[]; projectId: number }>
     ) => {
       state.projects = state.projects.map((p) =>
         p.id === action.payload.projectId
@@ -74,7 +74,7 @@ const projectsSlice = createSlice({
     },
     removeMember: (
       state,
-      action: PayloadAction<{ memberId: string; projectId: string }>
+      action: PayloadAction<{ memberId: number; projectId: number }>
     ) => {
       const project = state.projects.find(
         (p) => p.id === action.payload.projectId
@@ -138,7 +138,7 @@ export const fetchProjects = (): AppThunk => {
       dispatch(setFetchProjectsLoading());
       const allProjects = await projectService.getProjects();
       dispatch(setProjects(allProjects));
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setFetchProjectsError(getErrorMsg(e)));
     }
   };
@@ -155,14 +155,14 @@ export const createNewProject = (
       dispatch(addProject(newProject));
       dispatch(notify('New project added!', 'success'));
       closeDialog && closeDialog();
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setSubmitProjectError(getErrorMsg(e)));
     }
   };
 };
 
 export const deleteProject = (
-  projectId: string,
+  projectId: number,
   history: History
 ): AppThunk => {
   return async (dispatch) => {
@@ -171,14 +171,14 @@ export const deleteProject = (
       history.push('/');
       dispatch(removeProject(projectId));
       dispatch(notify('Deleted the project.', 'success'));
-    } catch (e) {
+    } catch (e: any) {
       dispatch(notify(getErrorMsg(e), 'error'));
     }
   };
 };
 
 export const editProjectName = (
-  projectId: string,
+  projectId: number,
   name: string,
   closeDialog?: () => void
 ): AppThunk => {
@@ -200,15 +200,15 @@ export const editProjectName = (
       );
       dispatch(notify("Edited the project's name!", 'success'));
       closeDialog && closeDialog();
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setSubmitProjectError(getErrorMsg(e)));
     }
   };
 };
 
 export const addProjectMembers = (
-  projectId: string,
-  members: string[],
+  projectId: number,
+  members: number[],
   closeDialog?: () => void
 ): AppThunk => {
   return async (dispatch) => {
@@ -218,29 +218,29 @@ export const addProjectMembers = (
       dispatch(addMembers({ members: updatedMembers, projectId }));
       dispatch(notify('New member(s) added to the project!', 'success'));
       closeDialog && closeDialog();
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setSubmitProjectError(getErrorMsg(e)));
     }
   };
 };
 
 export const removeProjectMember = (
-  projectId: string,
-  memberId: string
+  projectId: number,
+  memberId: number
 ): AppThunk => {
   return async (dispatch) => {
     try {
       await memberService.removeMember(projectId, memberId);
       dispatch(removeMember({ memberId, projectId }));
       dispatch(notify('Removed the project member.', 'success'));
-    } catch (e) {
+    } catch (e: any) {
       dispatch(notify(getErrorMsg(e), 'error'));
     }
   };
 };
 
 export const leaveProjectMembership = (
-  projectId: string,
+  projectId: number,
   history: History
 ): AppThunk => {
   return async (dispatch) => {
@@ -249,7 +249,7 @@ export const leaveProjectMembership = (
       history.push('/');
       dispatch(removeProject(projectId));
       dispatch(notify('Successfully left the project membership!', 'success'));
-    } catch (e) {
+    } catch (e: any) {
       dispatch(notify(getErrorMsg(e), 'error'));
     }
   };
@@ -257,7 +257,7 @@ export const leaveProjectMembership = (
 
 export const selectProjectsState = (state: RootState) => state.projects;
 
-export const selectProjectById = (state: RootState, projectId: string) => {
+export const selectProjectById = (state: RootState, projectId: number) => {
   return state.projects.projects.find((p) => p.id === projectId);
 };
 

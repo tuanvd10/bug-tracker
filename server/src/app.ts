@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+//import logger from 'morgan';
 import 'express-async-errors';
 import middleware from './middleware';
 import authRoutes from './routes/auth';
@@ -8,12 +9,16 @@ import memberRoutes from './routes/member';
 import bugRoutes from './routes/bug';
 import noteRoutes from './routes/note';
 import userRoutes from './routes/user';
+import moment from 'moment';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use(function(_req, _res, next){
+    console.log(moment().format('HH:mm:ss') + ' From server.js') //Showing time now
+    next();
+})
 app.use('/', authRoutes);
 app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);

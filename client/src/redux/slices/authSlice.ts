@@ -67,7 +67,7 @@ export const login = (credentials: CredentialsPayload): AppThunk => {
       dispatch(fetchProjects());
       dispatch(fetchUsers());
       dispatch(notify(`Welcome back, ${userData.username}!`, 'success'));
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setAuthError(getErrorMsg(e)));
     }
   };
@@ -88,7 +88,7 @@ export const signup = (credentials: CredentialsPayloadSignUp): AppThunk => {
       dispatch(
         notify(`Hi, ${userData.username}! Welcome to Bug Tracker :D`, 'success')
       );
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setAuthError(getErrorMsg(e)));
     }
   };

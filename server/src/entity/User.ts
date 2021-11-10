@@ -9,6 +9,6 @@ export class User extends BaseModel {
   @Column()
   passwordHash: string;
 
-  @Column()
+  @Column({unique: true})
   email: string;
 }

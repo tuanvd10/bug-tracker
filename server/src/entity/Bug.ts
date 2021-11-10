@@ -16,8 +16,8 @@ type Priority = 'low' | 'medium' | 'high';
 
 @Entity({ name: 'bugs' })
 export class Bug extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ type: 'varchar', length: 60 })
   title: string;
@@ -36,7 +36,7 @@ export class Bug extends BaseEntity {
   @JoinColumn({ name: 'projectId' })
   project: Project;
   @Column()
-  projectId: string;
+  projectId: number;
 
   @OneToMany(() => Note, (note) => note.bug)
   @JoinColumn()
@@ -49,7 +49,7 @@ export class Bug extends BaseEntity {
   @JoinColumn({ name: 'closedById' })
   closedBy: User;
   @Column({ type: 'text', nullable: true })
-  closedById: string | null;
+  closedById: number | null;
 
   @Column({ type: 'timestamp', nullable: true })
   closedAt: Date | null;
@@ -58,7 +58,7 @@ export class Bug extends BaseEntity {
   @JoinColumn({ name: 'reopenedById' })
   reopenedBy: User;
   @Column({ type: 'text', nullable: true })
-  reopenedById: string | null;
+  reopenedById: number | null;
 
   @Column({ type: 'timestamp', nullable: true })
   reopenedAt: Date | null;
@@ -67,7 +67,7 @@ export class Bug extends BaseEntity {
   @JoinColumn({ name: 'createdById' })
   createdBy: User;
   @Column()
-  createdById: string;
+  createdById: number;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -76,7 +76,7 @@ export class Bug extends BaseEntity {
   @JoinColumn({ name: 'updatedById' })
   updatedBy: User;
   @Column({ nullable: true })
-  updatedById: string;
+  updatedById: number;
 
   @Column({ nullable: true })
   updatedAt: Date;

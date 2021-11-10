@@ -22,8 +22,8 @@ const memberHeaders = ['ID', 'Username', 'Role', 'Joined'];
 
 const MembersTable: React.FC<{
   members: ProjectMember[];
-  adminId: string;
-  projectId: string;
+  adminId: number;
+  projectId: number;
   isMobile: boolean;
 }> = ({ members, adminId, projectId, isMobile }) => {
   const classes = useTableStyles();
@@ -32,7 +32,7 @@ const MembersTable: React.FC<{
 
   const isAdmin = adminId === user?.id;
 
-  const handleRemoveMember = (memberId: string) => {
+  const handleRemoveMember = (memberId: number) => {
     dispatch(removeProjectMember(projectId, memberId));
   };
 

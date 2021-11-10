@@ -1,20 +1,15 @@
 import {
-  BaseEntity,
   Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
   Column,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { Bug } from './Bug';
 import { User } from './User';
+import BaseModel from './BaseModel';
 
 @Entity({ name: 'notes' })
-export class Note extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Note extends BaseModel {
 
   @Column()
   body: string;
@@ -23,17 +18,11 @@ export class Note extends BaseEntity {
   @JoinColumn({ name: 'authorId' })
   author: User;
   @Column()
-  authorId: string;
+  authorId: number;
 
   @ManyToOne(() => Bug, (bug) => bug)
   @JoinColumn({ name: 'bugId' })
   bug: Bug;
   @Column()
-  bugId: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  bugId: number;
 }

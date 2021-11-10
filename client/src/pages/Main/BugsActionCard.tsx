@@ -35,7 +35,7 @@ const menuItems = [
 ];
 
 const BugsActionCard: React.FC<{
-  projectId: string;
+  projectId: number;
   filterValue: string;
   setFilterValue: (filterValue: string) => void;
   isMobile: boolean;

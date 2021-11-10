@@ -19,13 +19,13 @@ export class Member extends BaseEntity {
   @JoinColumn({ name: 'projectId' })
   project: Project;
   @Column()
-  projectId: string;
+  projectId: number;
 
   @ManyToOne(() => User, (user) => user)
   @JoinColumn({ name: 'memberId' })
   member: User;
   @Column()
-  memberId: string;
+  memberId: number;
 
   @CreateDateColumn()
   joinedAt: Date;

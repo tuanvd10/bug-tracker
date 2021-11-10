@@ -18,9 +18,9 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
 interface ProjectsMenuProps {
-  projectId: string;
+  projectId: number;
   currentName: string;
-  currentMembers: string[];
+  currentMembers: number[];
   isAdmin: boolean;
   iconSize?: 'small' | 'default' | 'large';
 }

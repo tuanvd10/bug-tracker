@@ -4,7 +4,7 @@ import { Member } from '../entity/Member';
 import { projectMembersError } from '../utils/validators';
 
 export const addProjectMembers = async (req: Request, res: Response) => {
-  const memberIds = req.body.members as string[];
+  const memberIds = req.body.members as number[];
   const { projectId } = req.params;
 
   if (memberIds.length === 0) {
@@ -14,7 +14,7 @@ export const addProjectMembers = async (req: Request, res: Response) => {
   }
 
   const targetProject = await Project.findOne({
-    where: { id: projectId },
+    where: { id: Number(projectId) },
     relations: ['members'],
   });
 
@@ -39,7 +39,7 @@ export const addProjectMembers = async (req: Request, res: Response) => {
 
   const membersArray = memberIds.map((memberId) => ({
     memberId,
-    projectId,
+    projectId: Number(projectId),
   }));
 
   await Member.insert(membersArray);
@@ -74,19 +74,19 @@ export const removeProjectMember = async (req: Request, res: Response) => {
     return res.status(401).send({ message: 'Access is denied.' });
   }
 
-  if (targetProject.createdById === memberId) {
+  if (targetProject.createdById === Number(memberId)) {
     return res
       .status(400)
       .send({ message: "Project creator can't be removed." });
   }
 
-  if (!targetProject.members.map((m) => m.memberId).includes(memberId)) {
+  if (!targetProject.members.map((m) => m.memberId).includes(Number(memberId))) {
     return res.status(404).send({
       message: "Member isn't part of the project or already removed.",
     });
   }
 
-  await Member.delete({ projectId, memberId });
+  await Member.delete({ projectId: Number(projectId), memberId : Number(memberId) });
   res.status(204).end();
 };
 
@@ -112,6 +112,6 @@ export const leaveProjectAsMember = async (req: Request, res: Response) => {
     });
   }
 
-  await Member.delete({ projectId, memberId: req.user });
+  await Member.delete({ projectId: Number(projectId), memberId: req.user });
   res.status(204).end();
 };

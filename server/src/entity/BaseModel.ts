@@ -6,8 +6,8 @@ import {
 } from 'typeorm';
 
 export default abstract class Model extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @CreateDateColumn()
   createdAt: Date;

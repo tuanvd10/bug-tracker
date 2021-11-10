@@ -15,12 +15,12 @@ const createProject = async (projectData: ProjectPayload) => {
   return response.data;
 };
 
-const deleteProject = async (projectId: string) => {
+const deleteProject = async (projectId: number) => {
   const response = await axios.delete(`${baseUrl}/${projectId}`, setConfig());
   return response.data;
 };
 
-const editProjectName = async (projectId: string, newName: string) => {
+const editProjectName = async (projectId: number, newName: string) => {
   const response = await axios.put(
     `${baseUrl}/${projectId}`,
     { name: newName },

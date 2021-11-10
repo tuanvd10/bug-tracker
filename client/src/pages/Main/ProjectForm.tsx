@@ -42,22 +42,22 @@ interface BaseType {
 interface CreateProject extends BaseType {
   editMode: null;
   currentName?: string;
-  currentMembers?: string[];
-  projectId?: string;
+  currentMembers?: number[];
+  projectId?: number;
 }
 
 interface EditProjectName extends BaseType {
   editMode: 'name';
   currentName: string;
-  projectId: string;
-  currentMembers?: string[];
+  projectId: number;
+  currentMembers?: number[];
 }
 
 interface AddProjectMembers extends BaseType {
   editMode: 'members';
-  currentMembers: string[];
-  projectId: string;
-  currentName?: string;
+  currentMembers: number[];
+  projectId: number;
+  currentName?: number;
 }
 
 type ProjectFormProps = CreateProject | EditProjectName | AddProjectMembers;
@@ -80,7 +80,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
       name: currentName || '',
     },
   });
-  const [members, setMembers] = useState<string[]>([]);
+  const [members, setMembers] = useState<number[]>([]);
 
   const selectMembersOnChange = (e: any, selectedOption: User[]) => {
     setMembers(selectedOption.map((s) => s.id));
@@ -91,13 +91,13 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
   };
 
   const handleEditName = ({ name }: { name: string }) => {
-    dispatch(editProjectName(projectId as string, name, closeDialog));
+    dispatch(editProjectName(projectId as number, name, closeDialog));
   };
 
   const handleAddMembers = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
 
-    dispatch(addProjectMembers(projectId as string, members, closeDialog));
+    dispatch(addProjectMembers(projectId as number, members, closeDialog));
   };
 
   return (

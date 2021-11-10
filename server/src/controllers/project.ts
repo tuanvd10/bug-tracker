@@ -28,14 +28,14 @@ export const getProjects = async (req: Request, res: Response) => {
     .leftJoinAndSelect('project.bugs', 'bug')
     .select(fieldsToSelect)
     .getMany();
-
+    console.log(JSON.stringify(projects, null, 2));
   res.json(projects);
 };
 
 export const createProject = async (req: Request, res: Response) => {
   const { name } = req.body;
   const memberIds = req.body.members
-    ? ([req.user, ...req.body.members] as string[])
+    ? ([req.user, ...req.body.members] as number[])
     : [req.user];
 
   const { errors, valid } = createProjectValidator(name, memberIds);
@@ -66,7 +66,6 @@ export const createProject = async (req: Request, res: Response) => {
     .leftJoinAndSelect('project.bugs', 'bug')
     .select(fieldsToSelect)
     .getOne();
-
   res.status(201).json(relationedProject);
 };
 
@@ -80,7 +79,7 @@ export const editProjectName = async (req: Request, res: Response) => {
     return res.status(400).send({ message: nameValidationError });
   }
 
-  const targetProject = await Project.findOne({ id: projectId });
+  const targetProject = await Project.findOne({ id: Number(projectId) });
 
   if (!targetProject) {
     return res.status(404).send({ message: 'Invalid project ID.' });
@@ -98,7 +97,7 @@ export const editProjectName = async (req: Request, res: Response) => {
 export const deleteProject = async (req: Request, res: Response) => {
   const { projectId } = req.params;
 
-  const targetProject = await Project.findOne({ id: projectId });
+  const targetProject = await Project.findOne({ id: Number(projectId) });
 
   if (!targetProject) {
     return res.status(404).send({ message: 'Invalid project ID.' });
@@ -108,8 +107,8 @@ export const deleteProject = async (req: Request, res: Response) => {
     return res.status(401).send({ message: 'Access is denied.' });
   }
 
-  await Member.delete({ projectId });
-  await Bug.delete({ projectId });
+  await Member.delete({ projectId: Number(projectId) });
+  await Bug.delete({ projectId: Number(projectId) });
   await targetProject.remove();
   res.status(204).end();
 };

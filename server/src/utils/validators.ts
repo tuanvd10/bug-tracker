@@ -63,7 +63,7 @@ export const projectNameError = (name: string) => {
   }
 };
 
-export const projectMembersError = (members: string[]) => {
+export const projectMembersError = (members: number[]) => {
   if (!Array.isArray(members)) {
     return 'Members field must be an array.';
   }
@@ -71,13 +71,9 @@ export const projectMembersError = (members: string[]) => {
   if (members.filter((m, i) => members.indexOf(m) !== i).length !== 0) {
     return 'Members field must not have already-added/duplicate IDs.';
   }
-
-  if (members.some((m) => m.length !== 36)) {
-    return 'Members array must contain valid UUIDs.';
-  }
 };
 
-export const createProjectValidator = (name: string, members: string[]) => {
+export const createProjectValidator = (name: string, members: number[]) => {
   const errors: ProjectErrors = {};
   const nameError = projectNameError(name);
   const membersError = projectMembersError(members);

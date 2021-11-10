@@ -1,5 +1,5 @@
 export interface UserState {
-  id: string;
+  id: number;
   username: string;
   token: string;
 }
@@ -7,7 +7,7 @@ export interface UserState {
 export type BugPriority = 'low' | 'medium' | 'high';
 
 export interface User {
-  id: string;
+  id: number;
   username: string;
 }
 
@@ -27,18 +27,18 @@ export interface Note {
 }
 
 export interface ProjectState {
-  id: string;
+  id: number;
   name: string;
   members: ProjectMember[];
-  bugs: Array<{ id: string }>;
+  bugs: Array<{ id: number }>;
   createdBy: User;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface BugState {
-  id: string;
-  projectId: string;
+  id: number;
+  projectId: number;
   title: string;
   description: string;
   priority: BugPriority;
@@ -92,7 +92,7 @@ export interface CredentialsPayloadSignUp {
 
 export interface ProjectPayload {
   name: string;
-  members: string[];
+  members: number[];
 }
 
 export interface BugPayload {

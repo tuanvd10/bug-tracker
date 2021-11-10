@@ -4,7 +4,7 @@ import { setConfig } from './auth';
 
 const baseUrl = `${backendUrl}/projects`;
 
-const addMembers = async (projectId: string, members: string[]) => {
+const addMembers = async (projectId: number, members: number[]) => {
   const response = await axios.post(
     `${baseUrl}/${projectId}/members`,
     { members },
@@ -13,7 +13,7 @@ const addMembers = async (projectId: string, members: string[]) => {
   return response.data;
 };
 
-const removeMember = async (projectId: string, memberId: string) => {
+const removeMember = async (projectId: number, memberId: number) => {
   const response = await axios.delete(
     `${baseUrl}/${projectId}/members/${memberId}`,
     setConfig()
@@ -21,7 +21,7 @@ const removeMember = async (projectId: string, memberId: string) => {
   return response.data;
 };
 
-const leaveProject = async (projectId: string) => {
+const leaveProject = async (projectId: number) => {
   const response = await axios.post(
     `${baseUrl}/${projectId}/members/leave`,
     null,

@@ -11,8 +11,8 @@ import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 const MembersCard: React.FC<{
   members: ProjectMember[];
   viewMembers: boolean;
-  adminId: string;
-  projectId: string;
+  adminId: number;
+  projectId: number;
   isMobile: boolean;
 }> = ({ members, viewMembers, adminId, projectId, isMobile }) => {
   const classes = useMainPageStyles();

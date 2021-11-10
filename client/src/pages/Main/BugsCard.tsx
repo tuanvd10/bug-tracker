@@ -18,7 +18,7 @@ import { Paper, Typography } from '@material-ui/core';
 import { useMainPageStyles } from '../../styles/muiStyles';
 import BugReportOutlinedIcon from '@material-ui/icons/BugReportOutlined';
 
-const BugsCard: React.FC<{ projectId: string; isMobile: boolean }> = ({
+const BugsCard: React.FC<{ projectId: number; isMobile: boolean }> = ({
   projectId,
   isMobile,
 }) => {

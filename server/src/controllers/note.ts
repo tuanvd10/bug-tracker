@@ -13,7 +13,7 @@ export const postNote = async (req: Request, res: Response) => {
       .send({ message: 'Note body field must not be empty.' });
   }
 
-  const projectMembers = await Member.find({ projectId });
+  const projectMembers = await Member.find({ projectId: Number(projectId) });
   const memberIds = projectMembers.map((m) => m.memberId);
 
   if (!memberIds.includes(req.user)) {
@@ -22,7 +22,7 @@ export const postNote = async (req: Request, res: Response) => {
       .send({ message: 'Access is denied. Not a member of the project.' });
   }
 
-  const newNote = Note.create({ body, authorId: req.user, bugId });
+  const newNote = Note.create({ body, authorId: req.user, bugId: Number(bugId) });
   await newNote.save();
 
   const relationedNote = await Note.createQueryBuilder('note')
@@ -89,7 +89,7 @@ export const updateNote = async (req: Request, res: Response) => {
       .send({ message: 'Note body field must not be empty.' });
   }
 
-  const projectMembers = await Member.find({ projectId });
+  const projectMembers = await Member.find({ projectId: Number(projectId) });
   const memberIds = projectMembers.map((m) => m.memberId);
 
   if (!memberIds.includes(req.user)) {

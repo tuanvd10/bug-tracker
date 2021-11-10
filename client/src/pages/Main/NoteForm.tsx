@@ -20,8 +20,8 @@ const validationSchema = yup.object({
 
 interface NoteFormProps {
   closeDialog?: () => void;
-  projectId: string;
-  bugId: string;
+  projectId: number;
+  bugId: number;
   isEditMode: boolean;
   currentBody?: string;
   noteId?: number;
